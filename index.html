@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDU Honour Shop</title>
+
+    <!-- Google Material Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+
+</head>
+
+<body>
+
+    <div>
+    <header>
+        <img src="university_logo.png" alt="University Logo">
+        <strong>
+        <h1>KDU HONOUR SHOP</h1>
+        </strong>
+    </header>
+
+    <hr>
+
+
+
+</div>
+
+
+<div class="cart-container" >
+    <div class="cart" onclick="toggleCartPopup()">
+        <i class="material-icons">shopping_cart</i>
+        <span class="cart-count" id="cart-count">0</span>
+    </div>
+</div>
+
+<div class="animate__animated animate__bounceInUp">
+    <div class="shop-container" >
+        <!-- Product 1: Badge -->
+        <div class="product-card">
+            <img src="badge.png" alt="KDU Badge">
+            <h2><strong>KDU Badge</strong></h2>
+            <p>Price: රු. 450/=</p>
+            <button onclick="addToCart('KDU Badge')">Add to Cart</button>
+        </div>
+
+        <!-- Product 2: Name Tag -->
+        <div class="product-card">
+            <img src="nametag.png" alt="KDU Name Tag">
+            <h2><strong>KDU Name Tag</strong></h2>
+            <p>Price: රු. 300/=</p>
+
+            <div class="input-container">
+<!--                 
+                <input type="text" id="first-name" id="name-tag-first-name" oninput="validateNameTag()" placeholder="Enter your first name">
+
+                <input type="text" id="last-name" placeholder="Enter your last name" id="name-tag-last-name" oninput="validateNameTag()">
+                
+-->
+
+
+                <input type="text" id="first-name" oninput="validateNameTag()" placeholder="Enter your first name">
+
+                <input type="text" id="last-name" placeholder="Enter your last name" oninput="validateNameTag()">
+                
+            </div>
+        
+            <button onclick="displayNames()">Preview</button>
+            <button id="name-tag-add-to-cart" onclick="addToCart('KDU Name Tag', document.getElementById('first-name').value, document.getElementById('last-name').value)" disabled>Add to Cart</button>
+            <br>    <br>
+        
+            <div class="name-tag" id="name-tag">
+                <img src="university_logo.png" alt="Emblem">
+                <div class="name">
+                    <p id="display-first-name"></p>
+                    <p id="display-last-name"></p>
+                </div>
+            </div>
+        
+            
+           
+
+
+        </div>
+
+        <!-- Product 3: Shoulder Applet -->
+        <div class="product-card">
+            <img src="applet.png" alt="KDU Shoulder Applet">
+            <h2><strong>KDU Shoulder Applet</strong></h2>
+            <p>Price: රු. 100/= *For 2X</p>
+
+
+            <!-- Appppppppppppppppppppppppppp         -->
+             
+            <div class="Applet-input-container">
+                <select id="stripes" onchange="updateStripes()" oninput="validateShoulderApplet()">
+                    <option value="1">Select Year</option>
+                    <option value="1">Year 1</option>
+                    <option value="2">Year 2</option>
+                    <option value="3">Year 3</option>
+                    <option value="4">Year 4</option>
+                </select>
+                <select id="color" onchange="updateStripes()" oninput="validateShoulderApplet()" >
+                    <option value="White">Select Faculty</option>
+                    <option value="white">FOT</option>
+                    <option value="red">FOC</option>
+                    <option value="yellow">FOE</option>
+                    <option value="purple">LAW</option>
+                </select>
+            </div>
+
+            <center>
+            <div class="AppletPreview" id="AppletPreview">
+                <!-- Stripes will be dynamically added here -->
+            </div>
+            <br>
+            </center>
+
+
+            <!-- Appppppppppppppppppppppppppp         -->
+
+            <button id="shoulder-applet-add-to-cart" onclick="addToCart('KDU Shoulder Applet', document.getElementById('color').value, document.getElementById('stripes').value)" disabled>Add to Cart</button>
+        </div>
+    </div>
+
+</div>
+
+    <div class="cart-popup" id="cart-popup">
+        <button class="popup-close" onclick="toggleCartPopup()">&times;</button>
+        <h3><b>Your Cart</b></h3>
+        <ul id="cart-items"></ul>
+        <button onclick="openCheckoutPopup()">Checkout</button>
+    </div>
+
+    <!-- Backdrop for checkout -->
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- Checkout Popup -->
+    <div class="checkout-popup" id="checkout-popup">
+        <center><h3>Checkout</h3></center>
+        <hr>
+        <i>
+        <p><strong>Bank Details:</strong></p>
+        <p>Account Name: Kotelawala Defence University</p>
+        <p>Account Number: 22233311554</p>
+        <p>Bank: BOC</p>
+        <p>Branch: Ratmalana</p></i>
+    <br>
+        <p><strong>Total Orders:</strong> <span id="total-orders">0</span></p>
+        <p><strong>Details:</strong></p>
+        <div id="order-details"></div>
+        <br>
+        <p><strong>Whatsapp Number (To send the Order ID)</strong></p>
+        <input class="input-container" type="tel" oninput="validateNameTag()" placeholder="0701234567"> <br>
+        <p><strong>Upload Payment Slip:</strong></p>
+        <input type="file" id="payment-slip">
+        
+        <div class="checkout-buttons">
+
+            <center>
+            <button onclick="submitPayment()">Submit Payment</button>
+            <button onclick="closeCheckoutPopup()">Close</button>
+        </center>
+
+        </div>
+    </div>
+
+    <!-- Confirmation Popup -->
+<div class="confirmation-popup" id="confirmation-popup">
+    <button class="popup-close" onclick="closeConfirmationPopup()">&times;</button>
+    <h3>Confirmation</h3>
+    <p>Your payment slip has been successfully uploaded and emailed. Thank you for your purchase!</p>
+</div>
+
+<!-- 
+    <footer>
+        Project By D/ICT/24/0047 - Thevinu Gunawardena from FOT
+    </footer> -->
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
